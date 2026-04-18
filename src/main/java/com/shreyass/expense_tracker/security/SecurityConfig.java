@@ -26,7 +26,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF as we are using JWTs
             .authorizeHttpRequests(auth -> auth
                 // Allow anyone to access the login and register endpoints
-                .requestMatchers("/api/auth/**").permitAll() 
+                .requestMatchers("/api/auth/**", "/error").permitAll() 
                 // Every other request (like adding expenses) MUST have a valid JWT
                 .anyRequest().authenticated() 
             )
