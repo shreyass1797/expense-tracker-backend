@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shreyass.expense_tracker.dto.CategorySummary;
 import com.shreyass.expense_tracker.dto.ExpenseRequest;
 import com.shreyass.expense_tracker.model.Expense;
 import com.shreyass.expense_tracker.service.ExpenseService;
@@ -29,5 +30,10 @@ public class ExpenseController {
     @GetMapping
     public ResponseEntity<List<Expense>> getMyExpenses() {
         return ResponseEntity.ok(expenseService.getMyExpenses());
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<CategorySummary>> getCategorySummary() {
+        return ResponseEntity.ok(expenseService.getCategorySummary());
     }
 }

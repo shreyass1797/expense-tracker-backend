@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.shreyass.expense_tracker.dto.CategorySummary;
 import com.shreyass.expense_tracker.dto.ExpenseRequest;
 import com.shreyass.expense_tracker.model.Expense;
 import com.shreyass.expense_tracker.model.User;
@@ -47,5 +48,10 @@ public class ExpenseService {
         User user = getAuthenticatedUser();
         // Return only the expenses belonging to this specific user
         return expenseRepository.findByUser_Id(user.getId());
+    }
+
+    public List<CategorySummary> getCategorySummary() {
+        User user = getAuthenticatedUser();
+        return expenseRepository.getCategorySpendSummary(user.getId());
     }
 }
