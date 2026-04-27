@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.shreyass.expense_tracker.dto.CategorySummary;
 import com.shreyass.expense_tracker.dto.ExpenseRequest;
+import com.shreyass.expense_tracker.exception.BudgetExceededException;
 import com.shreyass.expense_tracker.model.Expense;
 import com.shreyass.expense_tracker.model.User;
 import com.shreyass.expense_tracker.repository.ExpenseRepository;
@@ -51,7 +52,7 @@ public class ExpenseService {
 
             // 5. If projected > budget, crash the process!
             if (projectedSpend.compareTo(user.getMonthlyBudget()) > 0) {
-                throw new RuntimeException("Over Budget! Adding this expense exceeds your monthly limit of " + user.getMonthlyBudget());
+                throw new BudgetExceededException("Over Budget! Adding this expense exceeds your monthly limit of " + user.getMonthlyBudget());
             }
         }
         
