@@ -1,5 +1,7 @@
 package com.shreyass.expense_tracker.repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT new com.shreyass.expense_tracker.dto.CategorySummary(e.category, SUM(e.amount)) " +
            "FROM Expense e WHERE e.user.id = :userId GROUP BY e.category")
     List<CategorySummary> getCategorySpendSummary(@Param("userId") Long userId);
+
+    @Query("SELECT COALESCE(SUM(e.amount), 0) FROM Expense e WHERE e.user.id = :userId AND e.expenseDate BETWEEN :startDate AND :endDate")
+    BigDecimal getTotalSpendForMonth(@Param("userId") Long userId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
