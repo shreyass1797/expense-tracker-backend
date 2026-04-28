@@ -6,6 +6,10 @@ import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -69,10 +73,13 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
-    public List<Expense> getMyExpenses() {
+    public Page<Expense> getMyExpenses(int pageNumber, int pageSize) {
         User user = getAuthenticatedUser();
-        // Return only the expenses belonging to this specific user
-        return expenseRepository.findByUser_Id(user.getId());
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("expenseDate").descending());
+
+        return expenseRepository.findByUser_Id(user.getId(), pageable);
+        
     }
 
     public List<CategorySummary> getCategorySummary() {
