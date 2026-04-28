@@ -34,7 +34,7 @@ A production-grade RESTful API built with **Java** and **Spring Boot**, designed
 | Layer | Technology |
 |---|---|
 | Language | Java 17 |
-| Framework | Spring Boot 3.x |
+| Framework | Spring Boot 4.0.5 |
 | Database | PostgreSQL |
 | ORM | Spring Data JPA / Hibernate |
 | Security | Spring Security + `jjwt` (HMAC SHA-256) |
